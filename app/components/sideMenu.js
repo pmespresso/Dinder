@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
   Container,
   Header,
@@ -8,11 +8,11 @@ import {
   Text,
   View,
   Button
-} from 'native-base'
+} from 'native-base';
 
 export default class SideMenu extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
   render() {
     let list = [{
@@ -25,7 +25,7 @@ export default class SideMenu extends Component {
       onPress: () => {
         this.props.navigator.replace("History")
       }
-    }]
+    }];
     return (
       <Container theme={this.props.theme}>
         <Header/>
@@ -34,9 +34,9 @@ export default class SideMenu extends Component {
             <ListItem button onPress={item.onPress.bind(this)}>
               <Text> {item.title} </Text>
             </ListItem>
-          }/>
+          } />
         </View>
       </Container>
-    )
+    );
   }
 }

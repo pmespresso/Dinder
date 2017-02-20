@@ -1,54 +1,65 @@
 import React, { Component } from 'react';
 import { Drawer, View } from 'native-base';
-import { Navigator } from 'react-native';
+import { Navigator, Text } from 'react-native';
 
 import SideMenu from './components/sideMenu';
 
 import SettingsStore from './stores/settingsStore';
+import AuthStore from './stores/authStore';
+
 import SplashScene from './scenes/splashScene';
+import LoginScene from './scenes/loginScene';
 
 import theme from './theme/base-theme';
 
 const settings = new SettingsStore();
+const authStore = new AuthStore();
 
 export default class AppContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      toggled: false,
+      toggled: true,
       store: {
-        settings: settings
+        settings: settings,
+        auth: authStore
       },
       theme: theme
     }
   }
+
   toggleDrawer() {
-    this.state.toggled ? this._drawer.close() : this._drawer.open()
+    this.state.toggled ? this._drawer._root.close() : this._drawer._root.open();
   }
   openDrawer() {
-    this.setState({toggled: true})
+    this.setState({toggled: true});
   }
   closeDrawer() {
-    this.setState({toggled: false})
+    this.setState({toggled: false});
   }
   renderScene(route, navigator) {
     switch(route.title) {
-      case "Splash": {
-        return <SplashScene {...route.passProps} navigator={navigator} />
+      case 'Splash': {
+        return <SplashScene {...route.passProps} navigator={navigator}/>
+      }
+      case 'Login': {
+        return <LoginScene {...route.passProps} navigator={navigator} />
       }
       default: {
-        return null
+        console.log("default");
+        return <Text>Default</Text>
       }
     }
   }
   configureScene(route, routeStack) {
-    return Navigator.SceneConfigs.PushFromRight
+    return Navigator.SceneConfigs.PushFromRight;
   }
   render() {
     return (
       <Drawer
         ref={(ref) => this._drawer = ref}
         type="displace"
+        open={this.state.toggled}
         content={<SideMenu navigator={this._navigator} theme={this.state.theme}/>}
         onClose={this.closeDrawer.bind(this)}
         onOpen={this.openDrawer.bind(this)}
@@ -65,8 +76,7 @@ export default class AppContainer extends Component {
                 toggleDrawer: this.toggleDrawer.bind(this),
                 theme: this.state.theme
               }
-            }}
-            />
+            }} />
         </Drawer>
     )
   }

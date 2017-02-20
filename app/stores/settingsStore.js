@@ -14,8 +14,9 @@ export default class SettingsStore extends MobxFirebaseStore {
     /* pass reference of database to MobxFirebaseStore
      * which we are inheriting from */
     super(firebase.database().ref());
-    this.splashTime = 5000;
+    this.splashTime = 1000;
     this.splashImg = require('../../images/splash.jpg');
+    this.loginBG = require('../../images/login.jpg');
   }
 
   get SplashTime() {
@@ -24,5 +25,9 @@ export default class SettingsStore extends MobxFirebaseStore {
 
   get SplashImg() {
     return this.splashImg;
+  }
+
+  get LoginBG() {
+    return this.loginBG;
   }
 }
