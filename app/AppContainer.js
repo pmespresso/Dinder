@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Drawer, View } from 'native-base';
+import { View } from 'native-base';
 import { Navigator, Text } from 'react-native';
+import Drawer from 'react-native-drawer';
 
 import SideMenu from './components/sideMenu';
 
@@ -58,8 +59,8 @@ export default class AppContainer extends Component {
     return (
       <Drawer
         ref={(ref) => this._drawer = ref}
-        type="displace"
         open={this.state.toggled}
+        panOpenMask={0.5}
         content={<SideMenu navigator={this._navigator} theme={this.state.theme}/>}
         onClose={this.closeDrawer.bind(this)}
         onOpen={this.openDrawer.bind(this)}

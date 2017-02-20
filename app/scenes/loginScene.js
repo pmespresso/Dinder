@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Button,
   Container,
   Content,
   Header,
@@ -18,6 +19,12 @@ export default class LoginScene extends Component {
   }
   render() {
     const { theme, stores } = this.props;
+
+    const drawerButtonConfig = {
+      title: 'Next',
+      handler: () => alert('hello!'),
+    };
+
     return (
       <Container theme={theme}>
           <Header>
