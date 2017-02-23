@@ -8,7 +8,7 @@ import {
   Title,
   View
 } from 'native-base';
-import { Image } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import Login from '../components/login';
 import { observer } from 'mobx-react/native';
 
@@ -20,16 +20,8 @@ export default class LoginScene extends Component {
   render() {
     const { theme, stores } = this.props;
 
-    const drawerButtonConfig = {
-      title: 'Next',
-      handler: () => alert('hello!'),
-    };
-
     return (
-      <Container theme={theme}>
-          <Header>
-            <Title>HEY</Title>
-          </Header>
+      <Container theme={theme} >
           <Content scrollEnabled={false}>
             <Image source={stores.settings.loginBG} >
               <View>
@@ -41,3 +33,22 @@ export default class LoginScene extends Component {
     )
   }
 }
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    position: 'absolute'
+  },
+  /* REACT NATIVE BEST PRACTICE FOR FULL SCREEN IMAGES*/
+  loginBackgroundImage: {
+    flex: 1
+  },
+  loginForeground: {
+    flex: 1,
+    paddingTop: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 9,
+    bottom: 0
+  }
+})

@@ -21,23 +21,23 @@ export default class Login extends Component {
       loading: null
     }
   }
-  updateEmail(email) { this.setState({email}) }
-  updatePassword(password) { this.setState({password}) }
+  updateEmail(email) { this.setState({email: email}) }
+  updatePassword(password) { this.setState({password: password}) }
 
   signIn() {
-    const { auth } = this.props.stores
-    const { email, password } = this.state
+    const { auth } = this.props.stores;
+    const { email, password } = this.state;
 
     this.setState({loading: true}, () => {
-      auth.signIn({email, password})
-        .then(() => {
-          this.props.navigator.replace({
-            title: 'Match',
+      auth.signIn({email, password}).then((promise) => {
+          this.props.navigator.push({
+            title: "Match",
             passProps: this.props
           })
         })
     })
   }
+
   render() {
     const { loading } = this.state
     const { auth } = this.props.stores
@@ -48,14 +48,14 @@ export default class Login extends Component {
           <Input style={{color:"#fff"}}
             placeholder='Please Enter Email'
             placeholderTextColor="#fff"
-            onChangeText={(email) => { this.updateEmail(email)}} />
+            onChangeText={(email) => { this.updateEmail(email)} } />
         </InputGroup>
         <InputGroup style={{marginBottom:10}} borderType='rounded'>
           <Input style={{color:"#fff"}}
             placeholder='Please Enter Password'
             placeholderTextColor="#fff"
             secureTextEntry={true}
-            onChangeText={(pass) => { this.updatePassword(pass)}} />
+            onChangeText={(pass) => { this.updatePassword(pass)} } />
         </InputGroup>
         <Button title="login" style={{alignItems: 'center'}} onPress={this.signIn.bind(this)}>
           <Text>Login</Text>

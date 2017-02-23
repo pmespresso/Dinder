@@ -7,30 +7,38 @@ import SideMenu from './components/sideMenu';
 
 import SettingsStore from './stores/settingsStore';
 import AuthStore from './stores/authStore';
+import MatchStore from './stores/matchStore';
+import PostStore from './stores/postStore';
 
 import SplashScene from './scenes/splashScene';
 import LoginScene from './scenes/loginScene';
+import MatchScene from './scenes/matchScene';
+import PostScene from './scenes/postScene';
 
 import theme from './theme/base-theme';
 
 const settings = new SettingsStore();
 const authStore = new AuthStore();
+const matchStore = new MatchStore();
+const postStore = new PostStore();
 
 export default class AppContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      toggled: true,
+      toggled: false,
       store: {
         settings: settings,
-        auth: authStore
+        auth: authStore,
+        matches: matchStore,
+        posts: postStore
       },
       theme: theme
     }
   }
 
   toggleDrawer() {
-    this.state.toggled ? this._drawer._root.close() : this._drawer._root.open();
+    this.state.toggled ? this._drawer.close() : this._drawer.open();
   }
   openDrawer() {
     this.setState({toggled: true});
@@ -38,13 +46,20 @@ export default class AppContainer extends Component {
   closeDrawer() {
     this.setState({toggled: false});
   }
+
   renderScene(route, navigator) {
     switch(route.title) {
-      case 'Splash': {
+      case "Splash": {
         return <SplashScene {...route.passProps} navigator={navigator}/>
       }
-      case 'Login': {
+      case "Login": {
         return <LoginScene {...route.passProps} navigator={navigator} />
+      }
+      case "Match": {
+        return <MatchScene {...route.passProps} navigator={navigator} />
+      }
+      case "Post": {
+        return <PostScene {...route.passProps} navigator={navigator} />
       }
       default: {
         console.log("default");
@@ -78,7 +93,7 @@ export default class AppContainer extends Component {
                 theme: this.state.theme
               }
             }} />
-        </Drawer>
+       </Drawer>
     )
   }
 }
